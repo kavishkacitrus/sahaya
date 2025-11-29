@@ -59,6 +59,17 @@
       align-items: center;
     }
 
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+
     .logo {
       font-family: 'Poppins', sans-serif;
       font-size: 1.5rem;
@@ -107,6 +118,14 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+    }
+
+    .header-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     header h1 {
@@ -241,9 +260,184 @@
     .screenshots-grid img:hover {
       transform: scale(1.02);
     }
+    
+    /* ------------------- */
+    /* 7. Instructions */
+    /* ------------------- */
+    .instructions-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .instructions-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--shadow-subtle);
+      text-align: left;
+    }
+    
+    .instructions-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .instructions-card h3 i {
+      color: var(--secondary-color);
+    }
+    
+    .instructions-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .instructions-list li {
+      margin-bottom: 15px;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .instructions-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .instructions-list li:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* ------------------- */
+    /* 8. Roadmap */
+    /* ------------------- */
+    .roadmap-timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 0;
+      position: relative;
+      text-align: left;
+    }
+    
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background-color: #ddd;
+      margin-left: -1.5px;
+    }
+    
+    .roadmap-item {
+      position: relative;
+      width: 50%;
+      padding: 10px 40px;
+    }
+    
+    .roadmap-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+    
+    .roadmap-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+    
+    .roadmap-item-content {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: var(--shadow-subtle);
+      position: relative;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .roadmap-item:nth-child(odd) .roadmap-item-content {
+      border-left: none;
+      border-right: 5px solid var(--primary-color);
+    }
+    
+    .roadmap-item-content h3 {
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    
+    .roadmap-item-content p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    
+    .roadmap-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      position: absolute;
+      right: -10px;
+      top: 30px;
+      border-radius: 50%;
+      z-index: 1;
+      border: 3px solid white;
+    }
+
+    .roadmap-icon.current {
+      background: var(--secondary-color);
+      border-color: #eee;
+    }
+
+    .roadmap-item:nth-child(odd) .roadmap-icon {
+      left: auto;
+      right: -10px;
+    }
+    
+    .roadmap-item:nth-child(even) .roadmap-icon {
+      left: -10px;
+      right: auto;
+    }
+
+    /* Mobile Roadmap adjustments */
+    @media (max-width: 600px) {
+      .roadmap-timeline::before {
+        left: 20px; /* Move timeline to the left */
+      }
+      
+      .roadmap-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 60px; /* Space for the icon */
+        padding-right: 15px;
+        text-align: left !important;
+      }
+      
+      .roadmap-item-content {
+        border-right: none !important;
+        border-left: 5px solid var(--primary-color) !important;
+      }
+      
+      .roadmap-icon {
+        left: 10px !important;
+        right: auto !important;
+      }
+    }
+
 
     /* ------------------- */
-    /* 7. Footer */
+    /* 9. Footer */
     /* ------------------- */
     footer {
       background-color: var(--background-dark);
@@ -251,6 +445,13 @@
       padding: 50px 20px;
       text-align: center;
       font-size: 0.95rem;
+    }
+
+    .footer-logo {
+      width: 60px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
     }
 
     footer p {
@@ -269,12 +470,14 @@
     }
 
     /* ------------------- */
-    /* 8. Responsive */
+    /* 10. Responsive */
     /* ------------------- */
     @media (max-width: 992px) {
       header h1 { font-size: 3rem; }
       .nav-links { display: none; } /* Hide navigation links on small screens for simplicity */
       .feature-card { width: 90%; max-width: 400px; }
+      .instructions-card { width: 90%; max-width: 100%; }
+      .header-logo { width: 100px; }
     }
 
     .hamburger {
@@ -312,12 +515,16 @@
 
   <nav class="navbar">
     <div class="container">
-      <div class="logo">Sahaya</div>
+      <div class="logo-container">
+        <img src="assets/logo.jpg" alt="Sahaya Logo" class="logo-img">
+        <div class="logo">Sahaya</div>
+      </div>
       <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
       <div class="nav-links">
         <a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a>
+        <a href="#instructions" data-en="How to Use" data-si="භාවිතය">How to Use</a>
         <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
-        <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
+        <a href="#roadmap" data-en="Roadmap" data-si="මාර්ග සිතියම">Roadmap</a> <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
         <div class="language-switcher">
           <select id="language-select">
             <option value="en">English</option>
@@ -329,6 +536,7 @@
   </nav>
 
   <header>
+    <img src="assets/logo.jpg" alt="Sahaya Logo" class="header-logo">
     <h1 data-en="Sahaya: Seamlessly Connected. Always." data-si="සහය: නිරවුල්ව සම්බන්ධ වන්න. සැමවිටම.">Sahaya: Seamlessly Connected. Always.</h1>
     <p data-en="Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable." data-si="ඔබගේ අත්‍යවශ්‍ය <b>ඔෆ්ලයින් සන්නිවේදන සහයකයා</b>. චැට් කරන්න, දත්ත හුවමාරු කරන්න, සහ <b>Wi-Fi Direct</b> භාවිතයෙන් අසල ඇති උපාංග සමඟ සම්බන්ධ වී සිටින්න, අන්තර්ජාලය නොමැති වුවද.">Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
     <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Download App for Android" data-si="Android සඳහා යෙදුම බාගත කරන්න">Download App for Android</a>
@@ -358,6 +566,37 @@
     </div>
   </section>
 
+  <section id="instructions">
+    <div class="container">
+      <h2 data-en="How to Get Started" data-si="ආරම්භ කරන්නේ කෙසේද">How to Get Started</h2>
+      <p class="section-subtitle" data-en="Follow these simple steps to download, install, and start using Sahaya for offline communication" data-si="ඔෆ්ලයින් සන්නිවේදනය සඳහා සහය බාගත කිරීම, ස්ථාපනය කිරීම සහ භාවිතය ආරම්භ කිරීම සඳහා මෙම සරල පියවරයන් අනුගමනය කරන්න">Follow these simple steps to download, install, and start using Sahaya for offline communication</p>
+      
+      <div class="instructions-container">
+        <div class="instructions-card">
+          <h3><i class="fas fa-download"></i> <span data-en="Download & Installation" data-si="බාගත කිරීම සහ ස්ථාපනය">Download & Installation</span></h3>
+          <ul class="instructions-list">
+            <li data-en="Click the download button above to get the .apk file" data-si="ඉහත ඇති බාගත කිරීමේ බොත්තම ක්ලික් කර .apk ගොනුව ලබා ගන්න">Click the download button above to get the .apk file</li>
+            <li data-en="Open the downloaded .apk file to begin installation" data-si="බාගත කළ .apk ගොනුව විවෘත කර ස්ථාපනය ආරම්භ කරන්න">Open the downloaded .apk file to begin installation</li>
+            <li data-en="If prompted, allow installation from unknown sources in your device settings" data-si="ඉල්ලූ විට, ඔබගේ උපාංග සැකසුම්වල නොදන්නා මූලාශ්‍ර වලින් ස්ථාපනයට අවසර දෙන්න">If prompted, allow installation from unknown sources in your device settings</li>
+            <li data-en="Follow the on-screen instructions to complete installation" data-si="තිරය මත ඇති උපදෙස් අනුගමනය කර ස්ථාපනය සම්පූර්ණ කරන්න">Follow the on-screen instructions to complete installation</li>
+            <li data-en="Grant necessary permissions when the app requests them" data-si="යෙදුම ඉල්ලූ විට අවශ්‍ය අවසර ලබා දෙන්න">Grant necessary permissions when the app requests them</li>
+          </ul>
+        </div>
+        
+        <div class="instructions-card">
+          <h3><i class="fas fa-mobile-alt"></i> <span data-en="How to Use Sahaya" data-si="සහය භාවිතා කරන්නේ කෙසේද">How to Use Sahaya</span></h3>
+          <ul class="instructions-list">
+            <li data-en="Start the app and choose to act as a Server or Client" data-si="යෙදුම ආරම්භ කර සේවාදායකයෙකු හෝ සේවාලාභියෙකු ලෙස ක්‍රියා කිරීමට තෝරන්න">Start the app and choose to act as a Server or Client</li>
+            <li data-en="Discover nearby devices running Sahaya" data-si="සහය ධාවනය කරන ආසන්න උපාංග සොයා ගන්න">Discover nearby devices running Sahaya</li>
+            <li data-en="Tap a device from the list to connect" data-si="ලැයිස්තුවෙන් උපාංගයක් තෝරා සම්බන්ධ වන්න">Tap a device from the list to connect</li>
+            <li data-en="Start chatting and sharing data instantly" data-si="ක්ෂණිකව චැට් කිරීම සහ දත්ත හුවමාරු කිරීම ආරම්භ කරන්න">Start chatting and sharing data instantly</li>
+            <li data-en="All messages work offline using Wi-Fi Direct technology" data-si="සියලු පණිවිඩ Wi-Fi Direct තාක්ෂණය භාවිතයෙන් ඔෆ්ලයින්ව ක්‍රියා කරයි">All messages work offline using Wi-Fi Direct technology</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="screenshots">
     <div class="container">
       <h2 data-en="App in Action" data-si="ක්‍රියාකාරී යෙදුම">App in Action</h2>
@@ -370,6 +609,54 @@
     </div>
   </section>
 
+  <section id="roadmap">
+    <div class="container">
+      <h2 data-en="Our Development Roadmap" data-si="අපගේ සංවර්ධන මාර්ග සිතියම">Our Development Roadmap</h2>
+      <p class="section-subtitle" data-en="We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most." data-si="අපි අඛණ්ඩව සහයෙහි හැකියාවන් වැඩිදියුණු කිරීමට සහ පරිශීලකයින්ට වඩාත්ම වැදගත් වන විට සම්බන්ධ වීමට උපකාර වන තීරණාත්මක නව විශේෂාංග ගෙන ඒමට කටයුතු කරමින් සිටිමු.">We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most.</p>
+      
+      <div class="roadmap-timeline">
+        
+        <div class="roadmap-item">
+          <div class="roadmap-icon current"></div>
+          <div class="roadmap-item-content">
+            <h3 data-en="Phase 1: Direct P2P Communication" data-si="අදියර 1: සෘජු P2P සන්නිවේදනය">Phase 1: Direct P2P Communication</h3>
+            <p data-en="Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure." data-si="ඕනෑම බාහිර ජාල යටිතල පහසුකම් මත යැපීමකින් තොරව Wi-Fi Direct හරහා අසල ඇති උපාංග හඳුනා ගැනීමට සහ සන්නිවේදනය කිරීමට සබල කර ඇත.">Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure.</p>
+            <p data-en="<b>Status: Achieved</b>" data-si="<b>තත්ත්වය: සම්පූර්ණයි</b>"><b>Status: Achieved</b></p>
+          </div>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-icon"></div>
+          <div class="roadmap-item-content">
+            <h3 data-en="Phase 2: Emergency Mesh Network (Sahaya SOS)" data-si="අදියර 2: හදිසි දැල් ජාලය (සහය SOS)">Phase 2: Emergency Mesh Network (Sahaya SOS)</h3>
+            <p data-en="Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached." data-si="හදිසි අවස්ථා සඳහා පණිවිඩ දාම පද්ධතියක් සංවර්ධනය කිරීම. පරිශීලකයෙකු අන්තර්ජාලය නොමැතිව සිටී නම්, සම්බන්ධතාවයක් ලැබෙන තුරු ආසන්න උපාංග හරහා අනතුරු ඇඟවීමේ සංඥාවක් (SOS) යැවීමට හැකි වේ.">Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached.</p>
+            <p data-en="The connected device will then securely update the Sahaya website with the SOS message and location for immediate help." data-si="ඉන්පසු සම්බන්ධ වූ උපාංගය ක්ෂණික උපකාර සඳහා SOS පණිවිඩය සහ ස්ථානය සමඟ සහය වෙබ් අඩවිය ආරක්ෂිතව යාවත්කාලීන කරනු ඇත.">The connected device will then securely update the Sahaya website with the SOS message and location for immediate help.</p>
+            <p data-en="<b>Status: In Development (Coming Soon)</b>" data-si="<b>තත්ත්වය: සංවර්ධනය වෙමින් පවතී (ඉක්මනින් නිකුත් වේ)</b>"><b>Status: In Development (Coming Soon)</b></p>
+          </div>
+        </div>
+
+
+        <div class="roadmap-item">
+          <div class="roadmap-icon"></div>
+          <div class="roadmap-item-content">
+            <h3 data-en="Phase 3: Release on Google Play Store" data-si="අදියර 3: Google Play Store ශ්‍රිතයට නිකුත් කිරීම">
+              Phase 3: Release on Google Play Store
+            </h3>
+            <p data-en="Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks."
+              data-si="Sahaya යෙදුම Android ප්‍රතිපත්ති, ආරක්ෂක අවශ්‍යතා, සහ කාර්ය සාධන මපනවල අනුකූලව සකස් කර, නිල වශයෙන් Google Play Store වෙත නිකුත් කිරීම.">
+              Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks.
+            </p>
+            <p data-en="Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing."
+              data-si="යෙදුම් අත්සන් කිරීම, රහස්‍යතා ප්‍රකාශ, අන්තර්ගත මාර්ගෝපදේශ, සහ Store listing සඳහා ප්‍රචාරක ද්‍රව්‍ය සකස් කිරීම ඇතුළත් වේ.">
+              Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing.
+            </p>
+            <p data-en="<b>Status: Planned</b>" data-si="<b>තත්ත්වය: සැලසුම් කර ඇත</b>"><b>Status: Planned</b></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
   <section id="download-cta">
     <div class="container">
       <h2 data-en="Ready to Experience Offline Freedom?" data-si="ඔෆ්ලයින් නිදහස අත්විඳීමට සූදානම්ද?">Ready to Experience Offline Freedom?</h2>
@@ -380,6 +667,7 @@
 
   <footer>
     <div class="container">
+      <img src="assets/logo.jpg" alt="Sahaya Logo" class="footer-logo">
       <p>&copy; 2025 Sahaya. All rights reserved. | <a href="mailto:support@sahaya.com">support@sahaya.com</a></p>
       <p>
         <a href="#" data-en="Privacy Policy" data-si="රහස්‍යතා ප්‍රතිපත්තිය">Privacy Policy</a> | 
@@ -434,7 +722,7 @@
     changeLanguage(currentLanguage);
 
     // Simple scroll animation (improved logic)
-    const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshots-grid img, .download-btn');
+    const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshots-grid img, .download-btn, .roadmap-item, .instructions-card'); // Added .instructions-card
 
     const animateOnScroll = () => {
       elementsToAnimate.forEach(el => {
