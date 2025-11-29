@@ -66,6 +66,11 @@
       color: var(--primary-dark);
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
     .nav-links a {
       margin-left: 30px;
       font-weight: 500;
@@ -75,6 +80,21 @@
 
     .nav-links a:hover {
       color: var(--primary-color);
+    }
+
+    .language-switcher {
+      margin-left: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .language-switcher select {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      background-color: white;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
     }
 
     /* ------------------- */
@@ -264,38 +284,44 @@
     <div class="container">
       <div class="logo">Sahaya</div>
       <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#download-cta">Download</a>
+        <a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a>
+        <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
+        <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
+        <div class="language-switcher">
+          <select id="language-select">
+            <option value="en">English</option>
+            <option value="si">සිංහල</option>
+          </select>
+        </div>
       </div>
     </div>
   </nav>
 
   <header>
-    <h1>Sahaya: Seamlessly Connected. Always.</h1>
-    <p>Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
-    <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank">Download App for Android</a>
+    <h1 data-en="Sahaya: Seamlessly Connected. Always." data-si="සහය: නිරවුල්ව සම්බන්ධ වන්න. සැමවිටම.">Sahaya: Seamlessly Connected. Always.</h1>
+    <p data-en="Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable." data-si="ඔබගේ අත්‍යවශ්‍ය <b>ඔෆ්ලයින් සන්නිවේදන සහයකයා</b>. චැට් කරන්න, දත්ත හුවමාරු කරන්න, සහ <b>Wi-Fi Direct</b> භාවිතයෙන් අසල ඇති උපාංග සමඟ සම්බන්ධ වී සිටින්න, අන්තර්ජාලය නොමැති වුවද.">Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
+    <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Download App for Android" data-si="Android සඳහා යෙදුම බාගත කරන්න">Download App for Android</a>
   </header>
 
   <section id="features">
     <div class="container">
-      <h2>Why Choose Sahaya?</h2>
-      <p class="section-subtitle">Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks.</p>
+      <h2 data-en="Why Choose Sahaya?" data-si="ඇයි සහය තෝරාගත යුත්තේ?">Why Choose Sahaya?</h2>
+      <p class="section-subtitle" data-en="Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks." data-si="ඕනෑම පරිසරයක විශ්වසනීයත්වය සඳහා නිර්මාණය කර ඇති සහය, බාහිර ජාල මත රඳා නොසිට වැදගත්ම අවස්ථාවලදී ඔබට සන්නිවේදනය කිරීමට හැකි බව සහතික කරයි.">Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks.</p>
       <div class="features">
         <div class="feature-card">
           <span class="feature-icon"><i class="fas fa-wifi"></i></span>
-          <h3>True Offline Chat</h3>
-          <p>Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations.</p>
+          <h3 data-en="True Offline Chat" data-si="සැබෑ ඔෆ්ලයින් චැට්">True Offline Chat</h3>
+          <p data-en="Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations." data-si="උපාංග අතර සෘජුවම පණිවිඩ යවන්න සහ ලබාගන්න. දුරස්ථ ප්‍රදේශ, ජනගහිත සිදුවීම්, හෝ හදිසි අවස්ථා සඳහා පරිපූර්ණයි.">Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon"><i class="fas fa-search-location"></i></span>
-          <h3>Zero Configuration</h3>
-          <p>The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology.</p>
+          <h3 data-en="Zero Configuration" data-si="ශුන්‍ය වින්‍යාසය">Zero Configuration</h3>
+          <p data-en="The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology." data-si="යෙදුම ස්වයංක්‍රීයව අනෙක් සහය භාවිතා කරන්නන් හඳුනාගෙන, ශක්තිමත් Wi-Fi Direct තාක්ෂණය භාවිතයෙන් සම්බන්ධ වේ.">The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon"><i class="fas fa-lock"></i></span>
-          <h3>Privacy-First Security</h3>
-          <p>Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control.</p>
+          <h3 data-en="Privacy-First Security" data-si="පෞද්ගලිකත්වය-පළමු ආරක්ෂාව">Privacy-First Security</h3>
+          <p data-en="Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control." data-si="පණිවිඩ හුවමාරු වන්නේ දේශීයව, පීර්-ටු-පීර් ලෙසිනි. සේවාදායකයන් නැත, දත්ත ලොග් කිරීමක් නැත, උපරිම පරිශීලක රහස්‍යතාව සහ පාලනය සහතික කරයි.">Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control.</p>
         </div>
       </div>
     </div>
@@ -303,8 +329,8 @@
 
   <section id="screenshots">
     <div class="container">
-      <h2>App in Action</h2>
-      <p class="section-subtitle">A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency.</p>
+      <h2 data-en="App in Action" data-si="ක්‍රියාකාරී යෙදුම">App in Action</h2>
+      <p class="section-subtitle" data-en="A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency." data-si="සහයගේ අත්දැකීම්මය සහ පිරිසිදු පරිශීලක අතුරුමුහුණත තුළට ඉඟියක්, සරලත්වය සහ කාර්යක්ෂමතාව සඳහා නිර්මාණය කර ඇත.">A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency.</p>
       <div class="screenshots-grid">
         <img src="assets/screenshot1.jpg" alt="Sahaya Chat Screen">
         <img src="assets/screenshot2.jpg" alt="Sahaya Device Discovery">
@@ -315,9 +341,9 @@
 
   <section id="download-cta">
     <div class="container">
-      <h2>Ready to Experience Offline Freedom?</h2>
-      <p class="section-subtitle">Download Sahaya today and join the network that's always available, even without a signal.</p>
-      <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank">Get Sahaya Now</a>
+      <h2 data-en="Ready to Experience Offline Freedom?" data-si="ඔෆ්ලයින් නිදහස අත්විඳීමට සූදානම්ද?">Ready to Experience Offline Freedom?</h2>
+      <p class="section-subtitle" data-en="Download Sahaya today and join the network that's always available, even without a signal." data-si="සහය අදම බාගත කරන්න සහ සංඥාවක් නොමැතිවත් සැමවිටම ලබාගත හැකි ජාලයට සම්බන්ධ වන්න.">Download Sahaya today and join the network that's always available, even without a signal.</p>
+      <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Get Sahaya Now" data-si="දැන් සහය ලබාගන්න">Get Sahaya Now</a>
     </div>
   </section>
 
@@ -325,12 +351,57 @@
     <div class="container">
       <p>&copy; 2025 Sahaya. All rights reserved. | <a href="mailto:support@sahaya.com">support@sahaya.com</a></p>
       <p>
-        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">FAQs</a>
+        <a href="#" data-en="Privacy Policy" data-si="රහස්‍යතා ප්‍රතිපත්තිය">Privacy Policy</a> | 
+        <a href="#" data-en="Terms of Service" data-si="සේවා නියම">Terms of Service</a> | 
+        <a href="#" data-en="FAQs" data-si="නිතර අසන ප්‍රශ්න">FAQs</a>
       </p>
     </div>
   </footer>
 
   <script>
+    // Language switching functionality
+    const languageSelect = document.getElementById('language-select');
+    
+    // Set initial language based on browser preference or saved preference
+    let currentLanguage = localStorage.getItem('sahaya-language') || 'en';
+    languageSelect.value = currentLanguage;
+    
+    // Function to change language
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('sahaya-language', lang);
+      
+      // Update all elements with data attributes
+      document.querySelectorAll('[data-en], [data-si]').forEach(element => {
+        if (element.dataset[lang]) {
+          if (element.tagName === 'A' && element.classList.contains('download-btn')) {
+            element.textContent = element.dataset[lang];
+          } else if (element.tagName === 'A' && element.href.startsWith('mailto:')) {
+            // Skip email links
+          } else {
+            element.innerHTML = element.dataset[lang];
+          }
+        }
+      });
+      
+      // Update page direction for Sinhala
+      if (lang === 'si') {
+        document.body.style.direction = 'ltr'; // Sinhala is typically LTR
+        document.body.style.fontFamily = "'Inter', 'Iskoola Pota', sans-serif";
+      } else {
+        document.body.style.direction = 'ltr';
+        document.body.style.fontFamily = "'Inter', sans-serif";
+      }
+    }
+    
+    // Event listener for language selection
+    languageSelect.addEventListener('change', (e) => {
+      changeLanguage(e.target.value);
+    });
+    
+    // Initialize with saved language
+    changeLanguage(currentLanguage);
+
     // Simple scroll animation (improved logic)
     const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshots-grid img, .download-btn');
 
