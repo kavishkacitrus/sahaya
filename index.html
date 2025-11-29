@@ -1,760 +1,975 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sahaya - Offline Communication App</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wLp4A7T/X3lXf4z3oI4c1P2g/dE6l9aK6N0sF+4w+V+Y1x0W1Z1K1P1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    /* ------------------- */
-    /* 1. Global & Reset */
-    /* ------------------- */
-    :root {
-      --primary-color: #00897b; /* Teal */
-      --primary-dark: #005a50;
-      --secondary-color: #ff9800; /* Orange accent */
-      --text-dark: #212529;
-      --text-light: #495057;
-      --background-light: #f8f9fa;
-      --background-dark: #004d40;
-      --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --shadow-lift: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahaya - Offline Communication App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wLp4A7T/X3lXf4z3oI4c1P2g/dE6l9aK6N0sF+4w+V+Y1x0W1Z1K1P1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* ------------------- */
+        /* 1. Global & Reset */
+        /* ------------------- */
+        :root {
+            --primary-color: #00897b; /* Teal */
+            --primary-dark: #005a50;
+            --secondary-color: #ff9800; /* Orange accent */
+            --text-dark: #1f2937; /* Darker for better contrast */
+            --text-light: #4b5563; /* Slightly darker light text */
+            --background-light: #f9fafb; /* Lighter off-white */
+            --background-dark: #004d40;
+            --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.05); /* Lighter shadow */
+            --shadow-lift: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius-lg: 16px; /* Larger radius for modern feel */
+            --border-radius-md: 10px;
+        }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background-color: var(--background-light);
-      scroll-behavior: smooth;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+            scroll-behavior: smooth;
+        }
 
-    a { text-decoration: none; color: var(--primary-color); }
+        a { text-decoration: none; color: var(--primary-color); }
 
-    /* Utility */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* New: Section Title Group Styling */
+        .section-title-group {
+            margin-bottom: 60px;
+        }
 
-    /* ------------------- */
-    /* 2. Navigation Bar */
-    /* ------------------- */
-    .navbar {
-      background-color: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 15px 0;
-    }
+        /* ------------------- */
+        /* 2. Navigation Bar (Improved) */
+        /* ------------------- */
+        .navbar {
+            background-color: white;
+            box-shadow: var(--shadow-subtle); /* Used new variable */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 10px 0; /* Slightly reduced padding */
+            transition: all 0.3s ease; /* Transition for scroll effect */
+        }
+        
+        /* New: Navbar on scroll (optional: for shrink effect) */
+        .navbar.scrolled {
+            padding: 8px 0;
+        }
 
-    .navbar .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Reduced gap */
+        }
 
-    .logo-img {
-      height: 40px;
-      width: auto;
-    }
+        .logo-img {
+            height: 35px; /* Slightly smaller logo in navbar */
+            width: auto;
+            border-radius: 8px; /* Added border radius to navbar logo */
+        }
 
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem; /* Slightly larger/more prominent */
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-    }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
 
-    .nav-links a {
-      margin-left: 30px;
-      font-weight: 500;
-      color: var(--text-light);
-      transition: color 0.3s ease;
-    }
+        .nav-links a {
+            margin-left: 25px; /* Reduced margin */
+            font-weight: 500;
+            color: var(--text-light);
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            position: relative; /* For the underline effect */
+            padding-bottom: 5px; /* Space for the underline */
+        }
 
-    .nav-links a:hover {
-      color: var(--primary-color);
-    }
+        /* New: Modern underline hover effect */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
 
-    .language-switcher {
-      margin-left: 30px;
-      display: flex;
-      align-items: center;
-    }
-
-    .language-switcher select {
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      background-color: white;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-    }
-
-    /* ------------------- */
-    /* 3. Header / Hero */
-    /* ------------------- */
-    header {
-      background: linear-gradient(135deg, var(--primary-color) 0%, #26a69a 100%);
-      color: white;
-      padding: 120px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header-logo {
-      width: 120px;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    header h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 4rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    header p {
-      font-size: 1.25rem;
-      max-width: 800px;
-      margin: 0 auto 40px auto;
-      font-weight: 400;
-      opacity: 0.9;
-    }
-
-    .download-btn {
-      background-color: var(--secondary-color);
-      color: white;
-      font-weight: 600;
-      padding: 18px 35px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      display: inline-block;
-      box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .download-btn:hover {
-      background-color: #fb8c00;
-      box-shadow: 0 6px 15px rgba(255, 152, 0, 0.6);
-      transform: translateY(-2px);
-    }
-
-    /* ------------------- */
-    /* 4. Section Styles */
-    /* ------------------- */
-    section {
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    section:nth-child(even) { /* Subtle background for alternate sections */
-      background-color: #f2f4f6;
-    }
-
-    section h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      color: var(--primary-dark);
-      font-weight: 600;
-    }
-
-    .section-subtitle {
-      font-size: 1.15rem;
-      max-width: 750px;
-      margin: 0 auto 60px auto;
-      color: var(--text-light);
-    }
-
-    /* ------------------- */
-    /* 5. Features */
-    /* ------------------- */
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      width: 300px;
-      box-shadow: var(--shadow-subtle);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: left;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lift);
-    }
-
-    .feature-icon {
-      font-size: 2.2rem;
-      color: var(--secondary-color);
-      background-color: rgba(255, 152, 0, 0.1);
-      padding: 15px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      color: var(--primary-dark);
-    }
-
-    .feature-card p {
-      font-size: 1rem;
-      color: var(--text-light);
-      margin: 0;
-    }
-
-    /* ------------------- */
-    /* 6. Screenshots */
-    /* ------------------- */
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .screenshots-grid img {
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: var(--shadow-lift);
-      transition: transform 0.4s ease;
-      cursor: zoom-in;
-    }
-
-    .screenshots-grid img:hover {
-      transform: scale(1.02);
-    }
-    
-    /* ------------------- */
-    /* 7. Instructions */
-    /* ------------------- */
-    .instructions-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    
-    .instructions-card {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: var(--shadow-subtle);
-      text-align: left;
-    }
-    
-    .instructions-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      color: var(--primary-dark);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .instructions-card h3 i {
-      color: var(--secondary-color);
-    }
-    
-    .instructions-list {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    .instructions-list li {
-      margin-bottom: 15px;
-      padding-left: 30px;
-      position: relative;
-    }
-    
-    .instructions-list li:before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--primary-color);
-      font-weight: bold;
-    }
-    
-    .instructions-list li:last-child {
-      margin-bottom: 0;
-    }
-    
-    /* ------------------- */
-    /* 8. Roadmap */
-    /* ------------------- */
-    .roadmap-timeline {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px 0;
-      position: relative;
-      text-align: left;
-    }
-    
-    .roadmap-timeline::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 3px;
-      background-color: #ddd;
-      margin-left: -1.5px;
-    }
-    
-    .roadmap-item {
-      position: relative;
-      width: 50%;
-      padding: 10px 40px;
-    }
-    
-    .roadmap-item:nth-child(odd) {
-      left: 0;
-      text-align: right;
-    }
-    
-    .roadmap-item:nth-child(even) {
-      left: 50%;
-      text-align: left;
-    }
-    
-    .roadmap-item-content {
-      background: white;
-      padding: 20px 30px;
-      border-radius: 8px;
-      box-shadow: var(--shadow-subtle);
-      position: relative;
-      border-left: 5px solid var(--primary-color);
-    }
-
-    .roadmap-item:nth-child(odd) .roadmap-item-content {
-      border-left: none;
-      border-right: 5px solid var(--primary-color);
-    }
-    
-    .roadmap-item-content h3 {
-      font-size: 1.2rem;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-    
-    .roadmap-item-content p {
-      font-size: 0.95rem;
-      color: var(--text-light);
-    }
-    
-    .roadmap-icon {
-      width: 20px;
-      height: 20px;
-      background: var(--primary-color);
-      position: absolute;
-      right: -10px;
-      top: 30px;
-      border-radius: 50%;
-      z-index: 1;
-      border: 3px solid white;
-    }
-
-    .roadmap-icon.current {
-      background: var(--secondary-color);
-      border-color: #eee;
-    }
-
-    .roadmap-item:nth-child(odd) .roadmap-icon {
-      left: auto;
-      right: -10px;
-    }
-    
-    .roadmap-item:nth-child(even) .roadmap-icon {
-      left: -10px;
-      right: auto;
-    }
-
-    /* Mobile Roadmap adjustments */
-    @media (max-width: 600px) {
-      .roadmap-timeline::before {
-        left: 20px; /* Move timeline to the left */
-      }
-      
-      .roadmap-item {
-        width: 100%;
-        left: 0 !important;
-        padding-left: 60px; /* Space for the icon */
-        padding-right: 15px;
-        text-align: left !important;
-      }
-      
-      .roadmap-item-content {
-        border-right: none !important;
-        border-left: 5px solid var(--primary-color) !important;
-      }
-      
-      .roadmap-icon {
-        left: 10px !important;
-        right: auto !important;
-      }
-    }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after { /* Active state logic is in JS */
+             width: 100%;
+        }
 
 
-    /* ------------------- */
-    /* 9. Footer */
-    /* ------------------- */
-    footer {
-      background-color: var(--background-dark);
-      color: white;
-      padding: 50px 20px;
-      text-align: center;
-      font-size: 0.95rem;
-    }
+        .language-switcher {
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+        }
 
-    .footer-logo {
-      width: 60px;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
+        .language-switcher select {
+            padding: 8px 10px; /* Adjusted padding */
+            border-radius: var(--border-radius-md); /* Used new variable */
+            border: 1px solid #e5e7eb; /* Lighter border */
+            background-color: white;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .language-switcher select:focus {
+            border-color: var(--primary-color);
+        }
 
-    footer p {
-      margin-bottom: 12px;
-    }
+        /* ------------------- */
+        /* 3. Header / Hero (Enhanced) */
+        /* ------------------- */
+        header {
+            /* More dynamic gradient and overlay */
+            background: linear-gradient(135deg, var(--primary-color) 0%, #26a69a 80%, #4db6ac 100%);
+            color: white;
+            padding: 140px 20px 120px; /* Increased top padding */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* New: Subtle background pattern for texture */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.2;
+        }
 
-    footer a {
-      color: #b2dfdb;
-      font-weight: 500;
-      margin: 0 15px;
-      transition: color 0.3s ease;
-    }
+        .header-logo {
+            width: 100px; /* Slightly smaller for balance */
+            height: auto;
+            margin-bottom: 25px;
+            border-radius: 50%; /* Make it circular */
+            /* New: More prominent logo shadow/glow */
+            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
 
-    footer a:hover {
-      color: white;
-    }
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4.5rem; /* Larger and bolder */
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -2px; /* Tighter letter-spacing */
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    /* ------------------- */
-    /* 10. Responsive */
-    /* ------------------- */
-    @media (max-width: 992px) {
-      header h1 { font-size: 3rem; }
-      .nav-links { display: none; } /* Hide navigation links on small screens for simplicity */
-      .feature-card { width: 90%; max-width: 400px; }
-      .instructions-card { width: 90%; max-width: 100%; }
-      .header-logo { width: 100px; }
-    }
+        header p {
+            font-size: 1.4rem; /* Larger body text */
+            max-width: 850px;
+            margin: 0 auto 50px auto;
+            font-weight: 400;
+            opacity: 0.95;
+        }
 
-    .hamburger {
-      font-size: 28px;
-      cursor: pointer;
-      display: none;
-    }
+        .download-btn {
+            /* Primary button style */
+            background-color: var(--secondary-color);
+            color: var(--text-dark); /* Dark text on bright button for better contrast */
+            font-weight: 700;
+            padding: 16px 30px; 
+            border-radius: var(--border-radius-md); /* Used new variable */
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition */
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: none;
+        }
+        
+        /* New: Button hover/active state */
+        .download-btn:hover {
+            background-color: #fb8c00;
+            box-shadow: 0 12px 30px rgba(255, 152, 0, 0.6);
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+        }
 
-    @media (max-width: 992px) {
-      .hamburger {
-        display: block;
-      }
+        /* ------------------- */
+        /* 4. Section Styles */
+        /* ------------------- */
+        section {
+            padding: 100px 20px;
+            text-align: center;
+        }
 
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        background: white;
-        padding: 20px 0;
-      }
+        section:nth-child(even) { 
+            background-color: var(--background-light); /* Ensure consistency with new background var */
+        }
 
-      .nav-links.show {
-        display: flex;
-      }
+        section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem; /* Slightly larger section titles */
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
 
-      .nav-links a, .language-switcher {
-        margin: 15px 0;
-      }
-    }
+        .section-subtitle {
+            font-size: 1.15rem;
+            max-width: 750px;
+            margin: 0 auto 60px auto;
+            color: var(--text-light);
+            font-weight: 400;
+        }
 
-  </style>
+        /* ------------------- */
+        /* 5. Features (Enhanced) */
+        /* ------------------- */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px; /* Increased gap */
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-lg); /* Larger radius */
+            width: 320px; /* Slightly wider cards */
+            box-shadow: var(--shadow-subtle);
+            /* Added a subtle border for definition */
+            border: 1px solid #f3f4f6;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden; /* For inner elements */
+        }
+
+        /* New: Feature Card Hover Animation */
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Stronger lift shadow */
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem; /* Larger icon */
+            color: var(--secondary-color);
+            background-color: rgba(255, 152, 0, 0.1);
+            padding: 18px; /* More padding */
+            border-radius: 50%;
+            display: inline-flex; /* Use flex for perfect centering */
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+        
+        /* New: Icon color change on card hover */
+        .feature-card:hover .feature-icon {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem; /* Larger heading */
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .feature-card p {
+            font-size: 1.05rem; /* Slightly larger body text */
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* ------------------- */
+        /* 6. Screenshots (Enhanced) */
+        /* ------------------- */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Wider images */
+            gap: 40px; /* Increased gap */
+            max-width: 1000px; /* Wider grid */
+            margin: 0 auto;
+        }
+
+        .screenshots-grid img {
+            width: 100%;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lift);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: zoom-in;
+            border: 5px solid white; /* Added white frame */
+        }
+
+        .screenshots-grid img:hover {
+            transform: scale(1.05) rotate(1deg); /* Added subtle rotation */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* New: Screenshot captions */
+        .screenshot-item {
+             position: relative;
+             text-align: center;
+        }
+        
+        .screenshot-item p {
+            margin-top: 15px;
+            font-weight: 500;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* ------------------- */
+        /* 7. Instructions (Enhanced) */
+        /* ------------------- */
+        .instructions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px; /* Reduced gap for better fit */
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .instructions-card {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 520px; /* Wider card */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* Darker subtle shadow */
+            text-align: left;
+            border-top: 5px solid var(--primary-color); /* Added primary color accent */
+        }
+        
+        .instructions-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem; /* Larger heading */
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Increased gap */
+        }
+        
+        .instructions-card h3 i {
+            font-size: 1.8rem;
+            color: white; /* Icon white */
+            background-color: var(--secondary-color); /* Icon background orange */
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 18px; /* Increased margin */
+            padding-left: 35px; /* Increased padding */
+            position: relative;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+        
+        .instructions-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            content: '\f058'; /* Solid Check Circle icon */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .instructions-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* ------------------- */
+        /* 8. Roadmap (Improved Timeline) */
+        /* ------------------- */
+        .roadmap-timeline {
+            max-width: 900px; /* Wider timeline */
+            margin: 0 auto;
+            padding: 40px 0; /* More vertical padding */
+            position: relative;
+            text-align: left;
+        }
+        
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px; /* Thicker line */
+            background: linear-gradient(to bottom, var(--primary-color), #26a69a, #ddd); /* Gradient line */
+            margin-left: -2px;
+        }
+        
+        .roadmap-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px; /* Increased padding */
+        }
+        
+        .roadmap-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        
+        .roadmap-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .roadmap-item-content {
+            background: white;
+            padding: 25px 30px; /* Increased padding */
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            position: relative;
+            /* No need for left/right border accent now, using the icon/line */
+            border: 1px solid #eee; 
+        }
+
+        .roadmap-item-content h3 {
+            font-size: 1.35rem; /* Larger heading */
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .roadmap-item-content p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        .roadmap-icon {
+            width: 28px; /* Larger icon circle */
+            height: 28px;
+            background: var(--primary-color);
+            position: absolute;
+            top: 40px; /* Centered vertically */
+            border-radius: 50%;
+            z-index: 10;
+            border: 4px solid var(--background-light); /* Thick white/light border */
+            box-shadow: 0 0 0 2px var(--primary-dark); /* Subtle ring shadow */
+        }
+
+        .roadmap-icon.current {
+            background: var(--secondary-color);
+            box-shadow: 0 0 0 2px var(--secondary-color);
+        }
+
+        .roadmap-item:nth-child(odd) .roadmap-icon {
+            left: auto;
+            right: -14px; /* Half the size of icon */
+        }
+        
+        .roadmap-item:nth-child(even) .roadmap-icon {
+            left: -14px; /* Half the size of icon */
+            right: auto;
+        }
+
+        /* Mobile Roadmap adjustments (More unified and clean) */
+        @media (max-width: 600px) {
+            .roadmap-timeline::before {
+                left: 25px; /* Move timeline slightly right */
+            }
+            
+            .roadmap-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 65px; 
+                padding-right: 15px;
+                text-align: left !important;
+            }
+            
+            .roadmap-item-content {
+                border-left: 1px solid #eee; 
+                border-right: 1px solid #eee;
+            }
+            
+            .roadmap-icon {
+                left: 11px !important; /* Adjust position relative to the new line */
+                right: auto !important;
+            }
+        }
+
+
+        /* ------------------- */
+        /* 9. Footer (Enhanced) */
+        /* ------------------- */
+        footer {
+            background-color: var(--background-dark);
+            color: white;
+            padding: 60px 20px 40px; /* More top padding */
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            width: 60px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius-md);
+        }
+
+        footer p {
+            margin-bottom: 15px; /* Increased margin */
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: #b2dfdb;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        footer a::after { /* Footer link underline effect */
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        footer a:hover::after {
+            width: 100%;
+        }
+
+        footer a:hover {
+            color: white;
+            opacity: 1;
+        }
+
+        /* ------------------- */
+        /* 10. Responsive */
+        /* ------------------- */
+        @media (max-width: 992px) {
+            header h1 { font-size: 3.5rem; }
+            header p { font-size: 1.2rem; }
+            section h2 { font-size: 2.2rem; }
+            .feature-card { width: 45%; max-width: 450px; } /* Two per row on mid-screens */
+            .instructions-card { max-width: 100%; }
+            .header-logo { width: 80px; }
+            .navbar .container { padding-right: 25px; } /* Ensure padding is on mobile too */
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2.5rem; letter-spacing: -1px; }
+            header p { font-size: 1rem; }
+            section h2 { font-size: 1.8rem; }
+            .feature-card { width: 100%; max-width: 100%; padding: 30px; }
+            .screenshots-grid { grid-template-columns: 1fr; }
+            .download-btn { padding: 14px 25px; font-size: 0.9rem; }
+        }
+
+        .hamburger {
+            font-size: 28px;
+            cursor: pointer;
+            display: none;
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 992px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; /* Adjust based on navbar height */
+                left: 0;
+                right: 0;
+                text-align: center;
+                background: white;
+                box-shadow: var(--shadow-subtle);
+                padding: 10px 0;
+                z-index: 90;
+                border-top: 1px solid #eee;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links a, .language-switcher {
+                margin: 10px 0;
+                padding: 10px 0;
+                width: 100%;
+            }
+            
+            .nav-links a::after {
+                width: 0 !important; /* Remove desktop hover on mobile */
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="container">
-      <div class="logo-container">
-        <img src="assets/logo.jpg" alt="Sahaya Logo" class="logo-img">
-        <div class="logo">Sahaya</div>
-      </div>
-      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-      <div class="nav-links">
-        <a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a>
-        <a href="#instructions" data-en="How to Use" data-si="භාවිතය">How to Use</a>
-        <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
-        <a href="#roadmap" data-en="Roadmap" data-si="මාර්ග සිතියම">Roadmap</a> <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
-        <div class="language-switcher">
-          <select id="language-select">
-            <option value="en">English</option>
-            <option value="si">සිංහල</option>
-          </select>
+    <nav class="navbar" id="main-navbar">
+        <div class="container">
+            <div class="logo-container">
+                <img src="assets/logo.jpg" alt="Sahaya Logo" class="logo-img">
+                <div class="logo">Sahaya</div>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+            <div class="nav-links">
+                <a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a>
+                <a href="#instructions" data-en="How to Use" data-si="භාවිතය">How to Use</a>
+                <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
+                <a href="#roadmap" data-en="Roadmap" data-si="මාර්ග සිතියම">Roadmap</a>
+                <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
+                <div class="language-switcher">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="si">සිංහල</option>
+                    </select>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
-  <header>
-    <img src="assets/logo.jpg" alt="Sahaya Logo" class="header-logo">
-    <h1 data-en="Sahaya: Seamlessly Connected. Always." data-si="සහය: නිරවුල්ව සම්බන්ධ වන්න. සැමවිටම.">Sahaya: Seamlessly Connected. Always.</h1>
-    <p data-en="Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable." data-si="ඔබගේ අත්‍යවශ්‍ය <b>ඔෆ්ලයින් සන්නිවේදන සහයකයා</b>. චැට් කරන්න, දත්ත හුවමාරු කරන්න, සහ <b>Wi-Fi Direct</b> භාවිතයෙන් අසල ඇති උපාංග සමඟ සම්බන්ධ වී සිටින්න, අන්තර්ජාලය නොමැති වුවද.">Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
-    <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Download App for Android" data-si="Android සඳහා යෙදුම බාගත කරන්න">Download App for Android</a>
-  </header>
+    <header>
+        <img src="assets/logo.jpg" alt="Sahaya Logo" class="header-logo">
+        <h1 data-en="Sahaya: Seamlessly Connected. Always." data-si="සහය: නිරවුල්ව සම්බන්ධ වන්න. සැමවිටම.">Sahaya: Seamlessly Connected. Always.</h1>
+        <p data-en="Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable." data-si="ඔබගේ අත්‍යවශ්‍ය <b>ඔෆ්ලයින් සන්නිවේදන සහයකයා</b>. චැට් කරන්න, දත්ත හුවමාරු කරන්න, සහ <b>Wi-Fi Direct</b> භාවිතයෙන් අසල ඇති උපාංග සමඟ සම්බන්ධ වී සිටින්න, අන්තර්ජාලය නොමැති වුවද.">Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
+        <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Download App for Android" data-si="Android සඳහා යෙදුම බාගත කරන්න">Download App for Android</a>
+    </header>
 
-  <section id="features">
-    <div class="container">
-      <h2 data-en="Why Choose Sahaya?" data-si="ඇයි සහය තෝරාගත යුත්තේ?">Why Choose Sahaya?</h2>
-      <p class="section-subtitle" data-en="Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks." data-si="ඕනෑම පරිසරයක විශ්වසනීයත්වය සඳහා නිර්මාණය කර ඇති සහය, බාහිර ජාල මත රඳා නොසිට වැදගත්ම අවස්ථාවලදී ඔබට සන්නිවේදනය කිරීමට හැකි බව සහතික කරයි.">Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks.</p>
-      <div class="features">
-        <div class="feature-card">
-          <span class="feature-icon"><i class="fas fa-wifi"></i></span>
-          <h3 data-en="True Offline Chat" data-si="සැබෑ ඔෆ්ලයින් චැට්">True Offline Chat</h3>
-          <p data-en="Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations." data-si="උපාංග අතර සෘජුවම පණිවිඩ යවන්න සහ ලබාගන්න. දුරස්ථ ප්‍රදේශ, ජනගහිත සිදුවීම්, හෝ හදිසි අවස්ථා සඳහා පරිපූර්ණයි.">Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations.</p>
+    <section id="features">
+        <div class="container">
+            <div class="section-title-group">
+                <h2 data-en="Why Choose Sahaya?" data-si="ඇයි සහය තෝරාගත යුත්තේ?">Why Choose Sahaya?</h2>
+                <p class="section-subtitle" data-en="Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks." data-si="ඕනෑම පරිසරයක විශ්වසනීයත්වය සඳහා නිර්මාණය කර ඇති සහය, බාහිර ජාල මත රඳා නොසිට වැදගත්ම අවස්ථාවලදී ඔබට සන්නිවේදනය කිරීමට හැකි බව සහතික කරයි.">Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks.</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-wifi"></i></span>
+                    <h3 data-en="True Offline Chat" data-si="සැබෑ ඔෆ්ලයින් චැට්">True Offline Chat</h3>
+                    <p data-en="Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations." data-si="උපාංග අතර සෘජුවම පණිවිඩ යවන්න සහ ලබාගන්න. දුරස්ථ ප්‍රදේශ, ජනගහිත සිදුවීම්, හෝ හදිසි අවස්ථා සඳහා පරිපූර්ණයි.">Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-satellite-dish"></i></span> <h3 data-en="Zero Configuration" data-si="ශුන්‍ය වින්‍යාසය">Zero Configuration</h3>
+                    <p data-en="The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology." data-si="යෙදුම ස්වයංක්‍රීයව අනෙක් සහය භාවිතා කරන්නන් හඳුනාගෙන, ශක්තිමත් Wi-Fi Direct තාක්ෂණය භාවිතයෙන් සම්බන්ධ වේ.">The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="fas fa-shield-alt"></i></span> <h3 data-en="Privacy-First Security" data-si="පෞද්ගලිකත්වය-පළමු ආරක්ෂාව">Privacy-First Security</h3>
+                    <p data-en="Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control." data-si="පණිවිඩ හුවමාරු වන්නේ දේශීයව, පීර්-ටු-පීර් ලෙසිනි. සේවාදායකයන් නැත, දත්ත ලොග් කිරීමක් නැත, උපරිම පරිශීලක රහස්‍යතාව සහ පාලනය සහතික කරයි.">Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control.</p>
+                </div>
+            </div>
         </div>
-        <div class="feature-card">
-          <span class="feature-icon"><i class="fas fa-search-location"></i></span>
-          <h3 data-en="Zero Configuration" data-si="ශුන්‍ය වින්‍යාසය">Zero Configuration</h3>
-          <p data-en="The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology." data-si="යෙදුම ස්වයංක්‍රීයව අනෙක් සහය භාවිතා කරන්නන් හඳුනාගෙන, ශක්තිමත් Wi-Fi Direct තාක්ෂණය භාවිතයෙන් සම්බන්ධ වේ.">The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon"><i class="fas fa-lock"></i></span>
-          <h3 data-en="Privacy-First Security" data-si="පෞද්ගලිකත්වය-පළමු ආරක්ෂාව">Privacy-First Security</h3>
-          <p data-en="Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control." data-si="පණිවිඩ හුවමාරු වන්නේ දේශීයව, පීර්-ටු-පීර් ලෙසිනි. සේවාදායකයන් නැත, දත්ත ලොග් කිරීමක් නැත, උපරිම පරිශීලක රහස්‍යතාව සහ පාලනය සහතික කරයි.">Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="instructions">
-    <div class="container">
-      <h2 data-en="How to Get Started" data-si="ආරම්භ කරන්නේ කෙසේද">How to Get Started</h2>
-      <p class="section-subtitle" data-en="Follow these simple steps to download, install, and start using Sahaya for offline communication" data-si="ඔෆ්ලයින් සන්නිවේදනය සඳහා සහය බාගත කිරීම, ස්ථාපනය කිරීම සහ භාවිතය ආරම්භ කිරීම සඳහා මෙම සරල පියවරයන් අනුගමනය කරන්න">Follow these simple steps to download, install, and start using Sahaya for offline communication</p>
-      
-      <div class="instructions-container">
-        <div class="instructions-card">
-          <h3><i class="fas fa-download"></i> <span data-en="Download & Installation" data-si="බාගත කිරීම සහ ස්ථාපනය">Download & Installation</span></h3>
-          <ul class="instructions-list">
-            <li data-en="Click the download button above to get the .apk file" data-si="ඉහත ඇති බාගත කිරීමේ බොත්තම ක්ලික් කර .apk ගොනුව ලබා ගන්න">Click the download button above to get the .apk file</li>
-            <li data-en="Open the downloaded .apk file to begin installation" data-si="බාගත කළ .apk ගොනුව විවෘත කර ස්ථාපනය ආරම්භ කරන්න">Open the downloaded .apk file to begin installation</li>
-            <li data-en="If prompted, allow installation from unknown sources in your device settings" data-si="ඉල්ලූ විට, ඔබගේ උපාංග සැකසුම්වල නොදන්නා මූලාශ්‍ර වලින් ස්ථාපනයට අවසර දෙන්න">If prompted, allow installation from unknown sources in your device settings</li>
-            <li data-en="Follow the on-screen instructions to complete installation" data-si="තිරය මත ඇති උපදෙස් අනුගමනය කර ස්ථාපනය සම්පූර්ණ කරන්න">Follow the on-screen instructions to complete installation</li>
-            <li data-en="Grant necessary permissions when the app requests them" data-si="යෙදුම ඉල්ලූ විට අවශ්‍ය අවසර ලබා දෙන්න">Grant necessary permissions when the app requests them</li>
-          </ul>
+    <section id="instructions">
+        <div class="container">
+            <div class="section-title-group">
+                <h2 data-en="How to Get Started" data-si="ආරම්භ කරන්නේ කෙසේද">How to Get Started</h2>
+                <p class="section-subtitle" data-en="Follow these simple steps to download, install, and start using Sahaya for offline communication" data-si="ඔෆ්ලයින් සන්නිවේදනය සඳහා සහය බාගත කිරීම, ස්ථාපනය කිරීම සහ භාවිතය ආරම්භ කිරීම සඳහා මෙම සරල පියවරයන් අනුගමනය කරන්න">Follow these simple steps to download, install, and start using Sahaya for offline communication</p>
+            </div>
+            
+            <div class="instructions-container">
+                <div class="instructions-card">
+                    <h3><i class="fas fa-download"></i> <span data-en="Download & Installation" data-si="බාගත කිරීම සහ ස්ථාපනය">Download & Installation</span></h3>
+                    <ul class="instructions-list">
+                        <li data-en="Click the download button above to get the .apk file" data-si="ඉහත ඇති බාගත කිරීමේ බොත්තම ක්ලික් කර .apk ගොනුව ලබා ගන්න">Click the download button above to get the .apk file</li>
+                        <li data-en="Open the downloaded .apk file to begin installation" data-si="බාගත කළ .apk ගොනුව විවෘත කර ස්ථාපනය ආරම්භ කරන්න">Open the downloaded .apk file to begin installation</li>
+                        <li data-en="If prompted, allow installation from <b>unknown sources</b> in your device settings" data-si="ඉල්ලූ විට, ඔබගේ උපාංග සැකසුම්වල <b>නොදන්නා මූලාශ්‍ර</b> වලින් ස්ථාපනයට අවසර දෙන්න">If prompted, allow installation from <b>unknown sources</b> in your device settings</li>
+                        <li data-en="Follow the on-screen instructions to complete installation" data-si="තිරය මත ඇති උපදෙස් අනුගමනය කර ස්ථාපනය සම්පූර්ණ කරන්න">Follow the on-screen instructions to complete installation</li>
+                        <li data-en="Grant necessary permissions when the app requests them" data-si="යෙදුම ඉල්ලූ විට අවශ්‍ය අවසර ලබා දෙන්න">Grant necessary permissions when the app requests them</li>
+                    </ul>
+                </div>
+                
+                <div class="instructions-card">
+                    <h3><i class="fas fa-mobile-alt"></i> <span data-en="How to Use Sahaya" data-si="සහය භාවිතා කරන්නේ කෙසේද">How to Use Sahaya</span></h3>
+                    <ul class="instructions-list">
+                        <li data-en="Start the app and choose to act as a <b>Server</b> or <b>Client</b>" data-si="යෙදුම ආරම්භ කර <b>සේවාදායකයෙකු</b> හෝ <b>සේවාලාභියෙකු</b> ලෙස ක්‍රියා කිරීමට තෝරන්න">Start the app and choose to act as a <b>Server</b> or <b>Client</b></li>
+                        <li data-en="Discover nearby devices running Sahaya" data-si="සහය ධාවනය කරන ආසන්න උපාංග සොයා ගන්න">Discover nearby devices running Sahaya</li>
+                        <li data-en="Tap a device from the list to connect" data-si="ලැයිස්තුවෙන් උපාංගයක් තෝරා සම්බන්ධ වන්න">Tap a device from the list to connect</li>
+                        <li data-en="Start chatting and sharing data instantly" data-si="ක්ෂණිකව චැට් කිරීම සහ දත්ත හුවමාරු කිරීම ආරම්භ කරන්න">Start chatting and sharing data instantly</li>
+                        <li data-en="All messages work offline using Wi-Fi Direct technology" data-si="සියලු පණිවිඩ Wi-Fi Direct තාක්ෂණය භාවිතයෙන් ඔෆ්ලයින්ව ක්‍රියා කරයි">All messages work offline using Wi-Fi Direct technology</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section id="screenshots">
+        <div class="container">
+            <div class="section-title-group">
+                <h2 data-en="App in Action" data-si="ක්‍රියාකාරී යෙදුම">App in Action</h2>
+                <p class="section-subtitle" data-en="A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency." data-si="සහයගේ අත්දැකීම්මය සහ පිරිසිදු පරිශීලක අතුරුමුහුණත තුළට ඉඟියක්, සරලත්වය සහ කාර්යක්ෂමතාව සඳහා නිර්මාණය කර ඇත.">A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency.</p>
+            </div>
+            <div class="screenshots-grid">
+                <div class="screenshot-item">
+                    <img src="assets/screenshot1.jpg" alt="Sahaya Chat Screen">
+                    <p data-en="Messaging Interface" data-si="පණිවිඩ යැවීමේ අතුරුමුහුණත">Messaging Interface</p>
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot2.jpg" alt="Sahaya Device Discovery">
+                    <p data-en="Device Discovery" data-si="උපාංග සොයා ගැනීම">Device Discovery</p>
+                </div>
+                <div class="screenshot-item">
+                    <img src="assets/screenshot3.jpg" alt="Sahaya Settings Menu">
+                    <p data-en="Server/Client Selection" data-si="සේවාදායක/සේවාලාභී තේරීම">Server/Client Selection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap">
+        <div class="container">
+            <div class="section-title-group">
+                <h2 data-en="Our Development Roadmap" data-si="අපගේ සංවර්ධන මාර්ග සිතියම">Our Development Roadmap</h2>
+                <p class="section-subtitle" data-en="We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most." data-si="අපි අඛණ්ඩව සහයෙහි හැකියාවන් වැඩිදියුණු කිරීමට සහ පරිශීලකයින්ට වඩාත්ම වැදගත් වන විට සම්බන්ධ වීමට උපකාර වන තීරණාත්මක නව විශේෂාංග ගෙන ඒමට කටයුතු කරමින් සිටිමු.">We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most.</p>
+            </div>
+            
+            <div class="roadmap-timeline">
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-icon current"></div>
+                    <div class="roadmap-item-content">
+                        <h3 data-en="Phase 1: Direct P2P Communication" data-si="අදියර 1: සෘජු P2P සන්නිවේදනය">Phase 1: Direct P2P Communication</h3>
+                        <p data-en="Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure." data-si="ඕනෑම බාහිර ජාල යටිතල පහසුකම් මත යැපීමකින් තොරව Wi-Fi Direct හරහා අසල ඇති උපාංග හඳුනා ගැනීමට සහ සන්නිවේදනය කිරීමට සබල කර ඇත.">Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure.</p>
+                        <p data-en="<b>Status: Achieved</b>" data-si="<b>තත්ත්වය: සම්පූර්ණයි</b>"><b>Status: Achieved</b></p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item">
+                    <div class="roadmap-icon"></div>
+                    <div class="roadmap-item-content">
+                        <h3 data-en="Phase 2: Emergency Mesh Network (Sahaya SOS)" data-si="අදියර 2: හදිසි දැල් ජාලය (සහය SOS)">Phase 2: Emergency Mesh Network (Sahaya SOS)</h3>
+                        <p data-en="Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached." data-si="හදිසි අවස්ථා සඳහා පණිවිඩ දාම පද්ධතියක් සංවර්ධනය කිරීම. පරිශීලකයෙකු අන්තර්ජාලය නොමැතිව සිටී නම්, සම්බන්ධතාවයක් ලැබෙන තුරු ආසන්න උපාංග හරහා අනතුරු ඇඟවීමේ සංඥාවක් (SOS) යැවීමට හැකි වේ.">Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached.</p>
+                        <p data-en="The connected device will then securely update the Sahaya website with the SOS message and location for immediate help." data-si="ඉන්පසු සම්බන්ධ වූ උපාංගය ක්ෂණික උපකාර සඳහා SOS පණිවිඩය සහ ස්ථානය සමඟ සහය වෙබ් අඩවිය ආරක්ෂිතව යාවත්කාලීන කරනු ඇත.">The connected device will then securely update the Sahaya website with the SOS message and location for immediate help.</p>
+                        <p data-en="<b>Status: In Development (Coming Soon)</b>" data-si="<b>තත්ත්වය: සංවර්ධනය වෙමින් පවතී (ඉක්මනින් නිකුත් වේ)</b>"><b>Status: In Development (Coming Soon)</b></p>
+                    </div>
+                </div>
+
+
+                <div class="roadmap-item">
+                    <div class="roadmap-icon"></div>
+                    <div class="roadmap-item-content">
+                        <h3 data-en="Phase 3: Release on Google Play Store" data-si="අදියර 3: Google Play Store ශ්‍රිතයට නිකුත් කිරීම">
+                            Phase 3: Release on Google Play Store
+                        </h3>
+                        <p data-en="Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks."
+                            data-si="Sahaya යෙදුම Android ප්‍රතිපත්ති, ආරක්ෂක අවශ්‍යතා, සහ කාර්ය සාධන මපනවල අනුකූලව සකස් කර, නිල වශයෙන් Google Play Store වෙත නිකුත් කිරීම.">
+                            Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks.
+                        </p>
+                        <p data-en="Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing."
+                            data-si="යෙදුම් අත්සන් කිරීම, රහස්‍යතා ප්‍රකාශ, අන්තර්ගත මාර්ගෝපදේශ, සහ Store listing සඳහා ප්‍රචාරක ද්‍රව්‍ය සකස් කිරීම ඇතුළත් වේ.">
+                            Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing.
+                        </p>
+                        <p data-en="<b>Status: Planned</b>" data-si="<b>තත්ත්වය: සැලසුම් කර ඇත</b>"><b>Status: Planned</b></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <section id="download-cta">
+        <div class="container">
+            <h2 data-en="Ready to Experience Offline Freedom?" data-si="ඔෆ්ලයින් නිදහස අත්විඳීමට සූදානම්ද?">Ready to Experience Offline Freedom?</h2>
+            <p class="section-subtitle" data-en="Download Sahaya today and join the network that's always available, even without a signal." data-si="සහය අදම බාගත කරන්න සහ සංඥාවක් නොමැතිවත් සැමවිටම ලබාගත හැකි ජාලයට සම්බන්ධ වන්න.">Download Sahaya today and join the network that's always available, even without a signal.</p>
+            <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Get Sahaya Now" data-si="දැන් සහය ලබාගන්න">Get Sahaya Now</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="assets/logo.jpg" alt="Sahaya Logo" class="footer-logo">
+                <p>&copy; 2025 Sahaya. All rights reserved. | <a href="mailto:support@sahaya.com">support@sahaya.com</a></p>
+                <p>
+                    <a href="#" data-en="Privacy Policy" data-si="රහස්‍යතා ප්‍රතිපත්තිය">Privacy Policy</a> | 
+                    <a href="#" data-en="Terms of Service" data-si="සේවා නියම">Terms of Service</a> | 
+                    <a href="#" data-en="FAQs" data-si="නිතර අසන ප්‍රශ්න">FAQs</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        const languageSelect = document.getElementById('language-select');
         
-        <div class="instructions-card">
-          <h3><i class="fas fa-mobile-alt"></i> <span data-en="How to Use Sahaya" data-si="සහය භාවිතා කරන්නේ කෙසේද">How to Use Sahaya</span></h3>
-          <ul class="instructions-list">
-            <li data-en="Start the app and choose to act as a Server or Client" data-si="යෙදුම ආරම්භ කර සේවාදායකයෙකු හෝ සේවාලාභියෙකු ලෙස ක්‍රියා කිරීමට තෝරන්න">Start the app and choose to act as a Server or Client</li>
-            <li data-en="Discover nearby devices running Sahaya" data-si="සහය ධාවනය කරන ආසන්න උපාංග සොයා ගන්න">Discover nearby devices running Sahaya</li>
-            <li data-en="Tap a device from the list to connect" data-si="ලැයිස්තුවෙන් උපාංගයක් තෝරා සම්බන්ධ වන්න">Tap a device from the list to connect</li>
-            <li data-en="Start chatting and sharing data instantly" data-si="ක්ෂණිකව චැට් කිරීම සහ දත්ත හුවමාරු කිරීම ආරම්භ කරන්න">Start chatting and sharing data instantly</li>
-            <li data-en="All messages work offline using Wi-Fi Direct technology" data-si="සියලු පණිවිඩ Wi-Fi Direct තාක්ෂණය භාවිතයෙන් ඔෆ්ලයින්ව ක්‍රියා කරයි">All messages work offline using Wi-Fi Direct technology</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="screenshots">
-    <div class="container">
-      <h2 data-en="App in Action" data-si="ක්‍රියාකාරී යෙදුම">App in Action</h2>
-      <p class="section-subtitle" data-en="A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency." data-si="සහයගේ අත්දැකීම්මය සහ පිරිසිදු පරිශීලක අතුරුමුහුණත තුළට ඉඟියක්, සරලත්වය සහ කාර්යක්ෂමතාව සඳහා නිර්මාණය කර ඇත.">A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency.</p>
-      <div class="screenshots-grid">
-        <img src="assets/screenshot1.jpg" alt="Sahaya Chat Screen">
-        <img src="assets/screenshot2.jpg" alt="Sahaya Device Discovery">
-        <img src="assets/screenshot3.jpg" alt="Sahaya Settings Menu">
-      </div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <div class="container">
-      <h2 data-en="Our Development Roadmap" data-si="අපගේ සංවර්ධන මාර්ග සිතියම">Our Development Roadmap</h2>
-      <p class="section-subtitle" data-en="We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most." data-si="අපි අඛණ්ඩව සහයෙහි හැකියාවන් වැඩිදියුණු කිරීමට සහ පරිශීලකයින්ට වඩාත්ම වැදගත් වන විට සම්බන්ධ වීමට උපකාර වන තීරණාත්මක නව විශේෂාංග ගෙන ඒමට කටයුතු කරමින් සිටිමු.">We are continuously working to enhance Sahaya's capabilities and bring critical new features to help users connect when it matters most.</p>
-      
-      <div class="roadmap-timeline">
+        // Set initial language based on browser preference or saved preference
+        let currentLanguage = localStorage.getItem('sahaya-language') || 'en';
+        languageSelect.value = currentLanguage;
         
-        <div class="roadmap-item">
-          <div class="roadmap-icon current"></div>
-          <div class="roadmap-item-content">
-            <h3 data-en="Phase 1: Direct P2P Communication" data-si="අදියර 1: සෘජු P2P සන්නිවේදනය">Phase 1: Direct P2P Communication</h3>
-            <p data-en="Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure." data-si="ඕනෑම බාහිර ජාල යටිතල පහසුකම් මත යැපීමකින් තොරව Wi-Fi Direct හරහා අසල ඇති උපාංග හඳුනා ගැනීමට සහ සන්නිවේදනය කිරීමට සබල කර ඇත.">Enabled nearby devices to discover and communicate via Wi-Fi Direct without reliance on any external network infrastructure.</p>
-            <p data-en="<b>Status: Achieved</b>" data-si="<b>තත්ත්වය: සම්පූර්ණයි</b>"><b>Status: Achieved</b></p>
-          </div>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-icon"></div>
-          <div class="roadmap-item-content">
-            <h3 data-en="Phase 2: Emergency Mesh Network (Sahaya SOS)" data-si="අදියර 2: හදිසි දැල් ජාලය (සහය SOS)">Phase 2: Emergency Mesh Network (Sahaya SOS)</h3>
-            <p data-en="Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached." data-si="හදිසි අවස්ථා සඳහා පණිවිඩ දාම පද්ධතියක් සංවර්ධනය කිරීම. පරිශීලකයෙකු අන්තර්ජාලය නොමැතිව සිටී නම්, සම්බන්ධතාවයක් ලැබෙන තුරු ආසන්න උපාංග හරහා අනතුරු ඇඟවීමේ සංඥාවක් (SOS) යැවීමට හැකි වේ.">Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached.</p>
-            <p data-en="The connected device will then securely update the Sahaya website with the SOS message and location for immediate help." data-si="ඉන්පසු සම්බන්ධ වූ උපාංගය ක්ෂණික උපකාර සඳහා SOS පණිවිඩය සහ ස්ථානය සමඟ සහය වෙබ් අඩවිය ආරක්ෂිතව යාවත්කාලීන කරනු ඇත.">The connected device will then securely update the Sahaya website with the SOS message and location for immediate help.</p>
-            <p data-en="<b>Status: In Development (Coming Soon)</b>" data-si="<b>තත්ත්වය: සංවර්ධනය වෙමින් පවතී (ඉක්මනින් නිකුත් වේ)</b>"><b>Status: In Development (Coming Soon)</b></p>
-          </div>
-        </div>
-
-
-        <div class="roadmap-item">
-          <div class="roadmap-icon"></div>
-          <div class="roadmap-item-content">
-            <h3 data-en="Phase 3: Release on Google Play Store" data-si="අදියර 3: Google Play Store ශ්‍රිතයට නිකුත් කිරීම">
-              Phase 3: Release on Google Play Store
-            </h3>
-            <p data-en="Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks."
-              data-si="Sahaya යෙදුම Android ප්‍රතිපත්ති, ආරක්ෂක අවශ්‍යතා, සහ කාර්ය සාධන මපනවල අනුකූලව සකස් කර, නිල වශයෙන් Google Play Store වෙත නිකුත් කිරීම.">
-              Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks.
-            </p>
-            <p data-en="Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing."
-              data-si="යෙදුම් අත්සන් කිරීම, රහස්‍යතා ප්‍රකාශ, අන්තර්ගත මාර්ගෝපදේශ, සහ Store listing සඳහා ප්‍රචාරක ද්‍රව්‍ය සකස් කිරීම ඇතුළත් වේ.">
-              Includes app signing, privacy disclosures, content guidelines, and preparing promotional material for the store listing.
-            </p>
-            <p data-en="<b>Status: Planned</b>" data-si="<b>තත්ත්වය: සැලසුම් කර ඇත</b>"><b>Status: Planned</b></p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-  <section id="download-cta">
-    <div class="container">
-      <h2 data-en="Ready to Experience Offline Freedom?" data-si="ඔෆ්ලයින් නිදහස අත්විඳීමට සූදානම්ද?">Ready to Experience Offline Freedom?</h2>
-      <p class="section-subtitle" data-en="Download Sahaya today and join the network that's always available, even without a signal." data-si="සහය අදම බාගත කරන්න සහ සංඥාවක් නොමැතිවත් සැමවිටම ලබාගත හැකි ජාලයට සම්බන්ධ වන්න.">Download Sahaya today and join the network that's always available, even without a signal.</p>
-      <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank" data-en="Get Sahaya Now" data-si="දැන් සහය ලබාගන්න">Get Sahaya Now</a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <img src="assets/logo.jpg" alt="Sahaya Logo" class="footer-logo">
-      <p>&copy; 2025 Sahaya. All rights reserved. | <a href="mailto:support@sahaya.com">support@sahaya.com</a></p>
-      <p>
-        <a href="#" data-en="Privacy Policy" data-si="රහස්‍යතා ප්‍රතිපත්තිය">Privacy Policy</a> | 
-        <a href="#" data-en="Terms of Service" data-si="සේවා නියම">Terms of Service</a> | 
-        <a href="#" data-en="FAQs" data-si="නිතර අසන ප්‍රශ්න">FAQs</a>
-      </p>
-    </div>
-  </footer>
-
-  <script>
-    // Language switching functionality
-    const languageSelect = document.getElementById('language-select');
-    
-    // Set initial language based on browser preference or saved preference
-    let currentLanguage = localStorage.getItem('sahaya-language') || 'en';
-    languageSelect.value = currentLanguage;
-    
-    // Function to change language
-    function changeLanguage(lang) {
-      currentLanguage = lang;
-      localStorage.setItem('sahaya-language', lang);
-      
-      // Update all elements with data attributes
-      document.querySelectorAll('[data-en], [data-si]').forEach(element => {
-        if (element.dataset[lang]) {
-          if (element.tagName === 'A' && element.classList.contains('download-btn')) {
-            element.textContent = element.dataset[lang];
-          } else if (element.tagName === 'A' && element.href.startsWith('mailto:')) {
-            // Skip email links
-          } else {
-            element.innerHTML = element.dataset[lang];
-          }
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('sahaya-language', lang);
+            
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-en], [data-si]').forEach(element => {
+                if (element.dataset[lang]) {
+                    // Check if the element contains HTML content (like the <p> in header)
+                    const content = element.dataset[lang];
+                    if (content.includes('<b>') || content.includes('<i>') || content.includes('<u>')) {
+                         element.innerHTML = content;
+                    } else {
+                         element.textContent = content;
+                    }
+                }
+            });
+            
+            // Update page direction/font
+            if (lang === 'si') {
+                document.body.style.direction = 'ltr'; 
+                document.body.style.fontFamily = "'Inter', 'Iskoola Pota', sans-serif";
+            } else {
+                document.body.style.direction = 'ltr';
+                document.body.style.fontFamily = "'Inter', sans-serif";
+            }
         }
-      });
-      
-      // Update page direction for Sinhala
-      if (lang === 'si') {
-        document.body.style.direction = 'ltr'; // Sinhala is typically LTR
-        document.body.style.fontFamily = "'Inter', 'Iskoola Pota', sans-serif";
-      } else {
-        document.body.style.direction = 'ltr';
-        document.body.style.fontFamily = "'Inter', sans-serif";
-      }
-    }
-    
-    // Event listener for language selection
-    languageSelect.addEventListener('change', (e) => {
-      changeLanguage(e.target.value);
-    });
-    
-    // Initialize with saved language
-    changeLanguage(currentLanguage);
+        
+        // Event listener for language selection
+        languageSelect.addEventListener('change', (e) => {
+            changeLanguage(e.target.value);
+        });
+        
+        // Initialize with saved language
+        changeLanguage(currentLanguage);
 
-    // Simple scroll animation (improved logic)
-    const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshots-grid img, .download-btn, .roadmap-item, .instructions-card'); // Added .instructions-card
+        // Simple scroll animation (Improved with modern easing)
+        const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshot-item, .download-btn, .roadmap-item-content, .instructions-card');
 
-    const animateOnScroll = () => {
-      elementsToAnimate.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const isInView = (rect.top < window.innerHeight - 100);
+        const animateOnScroll = () => {
+            elementsToAnimate.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                // Animate when 80% of the element is visible
+                const triggerPoint = window.innerHeight * 0.8; 
+                const isInView = (rect.top < triggerPoint);
 
-        if (isInView) {
-          el.style.opacity = 1;
-          el.style.transform = 'translateY(0)';
-        } else if (rect.top > window.innerHeight) {
-          // Reset elements below the viewport to ensure animation fires on scroll up
-          el.style.opacity = 0;
-          el.style.transform = 'translateY(30px)';
+                if (isInView) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                } else if (rect.top > window.innerHeight) {
+                    // Reset elements far below the viewport
+                    el.style.opacity = 0;
+                    el.style.transform = 'translateY(30px)';
+                }
+            });
         }
-      });
-    }
 
-    // Initial setup for animation
-    elementsToAnimate.forEach(el => {
-      el.style.opacity = 0;
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; /* Smoother easing */
-    });
+        // Initial setup for animation
+        elementsToAnimate.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.2, 0.5, 0.1, 1)'; /* Ultra smooth spring-like easing */
+        });
 
-    window.addEventListener('scroll', animateOnScroll);
-    window.addEventListener('load', animateOnScroll); // Check on load too
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll); 
 
+        function toggleMenu() {
+            document.querySelector(".nav-links").classList.toggle("show");
+        }
+        
+        // New: Navbar shrink on scroll
+        const navbar = document.getElementById('main-navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
-    function toggleMenu() {
-      document.querySelector(".nav-links").classList.toggle("show");
-    }
-  </script>
+        // New: Navigation active state logic
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) { // Offset by 100px
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+    </script>
 
 </body>
 </html>
