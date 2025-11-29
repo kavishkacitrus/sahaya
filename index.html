@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahaya - Offline Communication App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wLp4A7T/X3lXf4z3oI4c1P2g/dE6l9aK6N0sF+4w+V+Y1x0W1Z1K1P1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* ------------------- */
+    /* 1. Global & Reset */
+    /* ------------------- */
+    :root {
+      --primary-color: #00897b; /* Teal */
+      --primary-dark: #005a50;
+      --secondary-color: #ff9800; /* Orange accent */
+      --text-dark: #212529;
+      --text-light: #495057;
+      --background-light: #f8f9fa;
+      --background-dark: #004d40;
+      --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lift: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--background-light);
+      scroll-behavior: smooth;
+    }
+
+    a { text-decoration: none; color: var(--primary-color); }
+
+    /* Utility */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ------------------- */
+    /* 2. Navigation Bar */
+    /* ------------------- */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .nav-links a {
+      margin-left: 30px;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* ------------------- */
+    /* 3. Header / Hero */
+    /* ------------------- */
+    header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #26a69a 100%);
+      color: white;
+      padding: 120px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 4rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .download-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      font-weight: 600;
+      padding: 18px 35px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .download-btn:hover {
+      background-color: #fb8c00;
+      box-shadow: 0 6px 15px rgba(255, 152, 0, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* ------------------- */
+    /* 4. Section Styles */
+    /* ------------------- */
+    section {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    section:nth-child(even) { /* Subtle background for alternate sections */
+      background-color: #f2f4f6;
+    }
+
+    section h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 1.15rem;
+      max-width: 750px;
+      margin: 0 auto 60px auto;
+      color: var(--text-light);
+    }
+
+    /* ------------------- */
+    /* 5. Features */
+    /* ------------------- */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: var(--shadow-subtle);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lift);
+    }
+
+    .feature-icon {
+      font-size: 2.2rem;
+      color: var(--secondary-color);
+      background-color: rgba(255, 152, 0, 0.1);
+      padding: 15px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    /* ------------------- */
+    /* 6. Screenshots */
+    /* ------------------- */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .screenshots-grid img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: var(--shadow-lift);
+      transition: transform 0.4s ease;
+      cursor: zoom-in;
+    }
+
+    .screenshots-grid img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ------------------- */
+    /* 7. Footer */
+    /* ------------------- */
+    footer {
+      background-color: var(--background-dark);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    footer p {
+      margin-bottom: 12px;
+    }
+
+    footer a {
+      color: #b2dfdb;
+      font-weight: 500;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    /* ------------------- */
+    /* 8. Responsive */
+    /* ------------------- */
+    @media (max-width: 992px) {
+      header h1 { font-size: 3rem; }
+      .nav-links { display: none; } /* Hide navigation links on small screens for simplicity */
+      .feature-card { width: 90%; max-width: 400px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">Sahaya</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#download-cta">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Sahaya: Seamlessly Connected. Always.</h1>
+    <p>Your essential <b>offline communication companion</b>. Chat, share data, and stay connected with nearby devices using <b>Wi-Fi Direct</b>, even when the internet is unavailable.</p>
+    <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank">Download App for Android</a>
+  </header>
+
+  <section id="features">
+    <div class="container">
+      <h2>Why Choose Sahaya?</h2>
+      <p class="section-subtitle">Designed for reliability in any environment, Sahaya ensures you can communicate when it matters most, without dependency on external networks.</p>
+      <div class="features">
+        <div class="feature-card">
+          <span class="feature-icon"><i class="fas fa-wifi"></i></span>
+          <h3>True Offline Chat</h3>
+          <p>Send and receive messages directly between devices. Perfect for remote areas, crowded events, or emergency situations.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon"><i class="fas fa-search-location"></i></span>
+          <h3>Zero Configuration</h3>
+          <p>The app automatically detects and connects with other Sahaya users in range using robust Wi-Fi Direct technology.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon"><i class="fas fa-lock"></i></span>
+          <h3>Privacy-First Security</h3>
+          <p>Messages are exchanged locally, peer-to-peer. No servers, no data logging, ensuring maximum user privacy and control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots">
+    <div class="container">
+      <h2>App in Action</h2>
+      <p class="section-subtitle">A glimpse into Sahaya's intuitive and clean user interface, designed for simplicity and efficiency.</p>
+      <div class="screenshots-grid">
+        <img src="assets/screenshot1.jpg" alt="Sahaya Chat Screen">
+        <img src="assets/screenshot2.jpg" alt="Sahaya Device Discovery">
+        <img src="assets/screenshot3.jpg" alt="Sahaya Settings Menu">
+      </div>
+    </div>
+  </section>
+
+  <section id="download-cta">
+    <div class="container">
+      <h2>Ready to Experience Offline Freedom?</h2>
+      <p class="section-subtitle">Download Sahaya today and join the network that's always available, even without a signal.</p>
+      <a href="https://drive.google.com/file/d/1pkmyKV4b4nkGwDSTkKla11mq7sU-mNuW/view?usp=sharing" class="download-btn" target="_blank">Get Sahaya Now</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Sahaya. All rights reserved. | <a href="mailto:support@sahaya.com">support@sahaya.com</a></p>
+      <p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">FAQs</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple scroll animation (improved logic)
+    const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshots-grid img, .download-btn');
+
+    const animateOnScroll = () => {
+      elementsToAnimate.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const isInView = (rect.top < window.innerHeight - 100);
+
+        if (isInView) {
+          el.style.opacity = 1;
+          el.style.transform = 'translateY(0)';
+        } else if (rect.top > window.innerHeight) {
+          // Reset elements below the viewport to ensure animation fires on scroll up
+          el.style.opacity = 0;
+          el.style.transform = 'translateY(30px)';
+        }
+      });
+    }
+
+    // Initial setup for animation
+    elementsToAnimate.forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; /* Smoother easing */
+    });
+
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll); // Check on load too
+  </script>
+
+</body>
+</html>
