@@ -276,6 +276,36 @@
       .nav-links { display: none; } /* Hide navigation links on small screens for simplicity */
       .feature-card { width: 90%; max-width: 400px; }
     }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 992px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background: white;
+        padding: 20px 0;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-links a, .language-switcher {
+        margin: 15px 0;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -283,6 +313,7 @@
   <nav class="navbar">
     <div class="container">
       <div class="logo">Sahaya</div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
       <div class="nav-links">
         <a href="#features" data-en="Features" data-si="විශේෂාංග">Features</a>
         <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
@@ -430,6 +461,11 @@
 
     window.addEventListener('scroll', animateOnScroll);
     window.addEventListener('load', animateOnScroll); // Check on load too
+
+
+    function toggleMenu() {
+      document.querySelector(".nav-links").classList.toggle("show");
+    }
   </script>
 
 </body>
