@@ -556,7 +556,67 @@
         }
 
         /* ------------------- */
-        /* 9. NEW: Enhanced Help Platform Styles */
+        /* 9. NEW: Flood Map Section */
+        /* ------------------- */
+        .flood-map {
+            background-color: #f0f7f6;
+        }
+
+        .flood-map-container {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-subtle);
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .flood-map-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: var(--background-light);
+            border-radius: var(--border-radius-md);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .map-note {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* ------------------- */
+        /* 10. NEW: Enhanced Help Platform Styles */
         /* ------------------- */
         .help-platform {
             background-color: #f0f7f6;
@@ -977,7 +1037,7 @@
         }
 
         /* ------------------- */
-        /* 10. Footer (Enhanced) */
+        /* 11. Footer (Enhanced) */
         /* ------------------- */
         footer {
             background-color: var(--background-dark);
@@ -1035,7 +1095,7 @@
         }
 
         /* ------------------- */
-        /* 11. Responsive */
+        /* 12. Responsive */
         /* ------------------- */
         @media (max-width: 992px) {
             header h1 { font-size: 3.5rem; }
@@ -1046,6 +1106,7 @@
             .header-logo { width: 80px; }
             .navbar .container { padding-right: 25px; } /* Ensure padding is on mobile too */
             .help-requests { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .flood-map-frame { height: 500px; }
         }
 
         @media (max-width: 600px) {
@@ -1058,6 +1119,8 @@
             .help-form { padding: 25px; }
             .dashboard-stats { grid-template-columns: 1fr; }
             .help-requests { grid-template-columns: 1fr; }
+            .flood-map-frame { height: 400px; }
+            .map-legend { flex-direction: column; align-items: flex-start; }
         }
 
         .hamburger {
@@ -1144,6 +1207,7 @@
                 <a href="#instructions" data-en="How to Use" data-si="භාවිතය">How to Use</a>
                 <a href="#screenshots" data-en="Screenshots" data-si="තිර පින්තූර">Screenshots</a>
                 <a href="#roadmap" data-en="Roadmap" data-si="මාර්ග සිතියම">Roadmap</a>
+                <a href="#flood-map" data-en="Flood Map" data-si="ගංවතුර සිතියම">Flood Map</a>
                 <a href="#help-platform" data-en="Help Platform" data-si="උපකාර වේදිකාව">Help Platform</a>
                 <a href="#download-cta" data-en="Download" data-si="බාගත කරන්න">Download</a>
                 <div class="language-switcher">
@@ -1262,9 +1326,19 @@
                 </div>
 
                 <div class="roadmap-item">
+                    <div class="roadmap-icon current"></div>
+                    <div class="roadmap-item-content">
+                        <h3 data-en="Phase 2: Help Platform" data-si="අදියර 2: උපකාර වේදිකාව">Phase 2: Help Platform</h3>
+                        <p data-en="Created a comprehensive help platform where users can request assistance or offer help to those in need during emergencies. No registration required - anyone can post or view requests." data-si="හදිසි අවස්ථාවලදී පරිශීලකයින්ට උපකාර ඉල්ලීමට හෝ අවශ්‍යතාවයක් ඇති අයට සහාය ලබා දීමට හැකි වන සවිස්තරාත්මක උපකාර වේදිකාවක් නිර්මාණය කරන ලදී. ලියාපදිංචියක් අවශ්‍ය නොවේ - ඕනෑම කෙනෙකුට ඉල්ලීම් පළ කිරීමට හෝ බැලීමට හැකිය.">Created a comprehensive help platform where users can request assistance or offer help to those in need during emergencies. No registration required - anyone can post or view requests.</p>
+                        <p data-en="Features include real-time request submission, location-based assistance, urgency levels, and a dashboard to view all active requests with filtering capabilities." data-si="විශේෂාංගවලට තාත්වික කාලීන ඉල්ලීම් යොමු කිරීම, ස්ථාන-මත පදනම්වූ උපකාර, හදිසිකාරීත්ව මට්ටම්, සහ පෙරහන් කිරීමේ හැකියාවන් සහිතව සියලුම සක්‍රීය ඉල්ලීම් බැලීම සඳහා පාලක පුවරුව ඇතුළත් වේ.">Features include real-time request submission, location-based assistance, urgency levels, and a dashboard to view all active requests with filtering capabilities.</p>
+                        <p data-en="<b>Status: Achieved</b>" data-si="<b>තත්ත්වය: සම්පූර්ණයි</b>"><b>Status: Achieved</b></p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item">
                     <div class="roadmap-icon"></div>
                     <div class="roadmap-item-content">
-                        <h3 data-en="Phase 2: Emergency Mesh Network (Sahaya SOS)" data-si="අදියර 2: හදිසි දැල් ජාලය (සහය SOS)">Phase 2: Emergency Mesh Network (Sahaya SOS)</h3>
+                        <h3 data-en="Phase 3: Emergency Mesh Network (Sahaya SOS)" data-si="අදියර 2: හදිසි දැල් ජාලය (සහය SOS)">Phase 2: Emergency Mesh Network (Sahaya SOS)</h3>
                         <p data-en="Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached." data-si="හදිසි අවස්ථා සඳහා පණිවිඩ දාම පද්ධතියක් සංවර්ධනය කිරීම. පරිශීලකයෙකු අන්තර්ජාලය නොමැතිව සිටී නම්, සම්බන්ධතාවයක් ලැබෙන තුරු ආසන්න උපාංග හරහා අනතුරු ඇඟවීමේ සංඥාවක් (SOS) යැවීමට හැකි වේ.">Develop a message chain system for emergencies. If a user is without internet, a distress signal (SOS) can be relayed from device to device until a connection is reached.</p>
                         <p data-en="The connected device will then securely update the Sahaya website with the SOS message and location for immediate help." data-si="ඉන්පසු සම්බන්ධ වූ උපාංගය ක්ෂණික උපකාර සඳහා SOS පණිවිඩය සහ ස්ථානය සමඟ සහය වෙබ් අඩවිය ආරක්ෂිතව යාවත්කාලීන කරනු ඇත.">The connected device will then securely update the Sahaya website with the SOS message and location for immediate help.</p>
                         <p data-en="<b>Status: In Development (Coming Soon)</b>" data-si="<b>තත්ත්වය: සංවර්ධනය වෙමින් පවතී (ඉක්මනින් නිකුත් වේ)</b>"><b>Status: In Development (Coming Soon)</b></p>
@@ -1275,7 +1349,7 @@
                 <div class="roadmap-item">
                     <div class="roadmap-icon"></div>
                     <div class="roadmap-item-content">
-                        <h3 data-en="Phase 3: Release on Google Play Store" data-si="අදියර 3: Google Play Store ශ්‍රිතයට නිකුත් කිරීම">
+                        <h3 data-en="Phase 4: Release on Google Play Store" data-si="අදියර 3: Google Play Store ශ්‍රිතයට නිකුත් කිරීම">
                             Phase 3: Release on Google Play Store
                         </h3>
                         <p data-en="Prepare and publish Sahaya officially on the Google Play Store, ensuring full compliance with Android policies, security requirements, and performance benchmarks."
@@ -1290,6 +1364,45 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+    
+    <!-- NEW: Flood Map Section -->
+    <section id="flood-map" class="flood-map">
+        <div class="container">
+            <div class="section-title-group">
+                <h2 data-en="Sri Lanka Flood Map" data-si="ශ්‍රී ලංකා ගංවතුර සිතියම">Sri Lanka Flood Map</h2>
+                <p class="section-subtitle" data-en="Stay informed about current flood situations across Sri Lanka. This interactive map provides real-time flood information to help you make informed decisions during emergencies." data-si="ශ්‍රී ලංකාව පුරා වර්තමාන ගංවතුර තත්ත්වය පිළිබඳව දැනුවත් වන්න. මෙම අන්තර්ක්‍රියාකාරී සිතියම හදිසි අවස්ථාවලදී ඔබට නිවැරදි තීරණ ගැනීමට උපකාරී වන තාත්වික කාලීන ගංවතුර තොරතුරු සපයයි.">Stay informed about current flood situations across Sri Lanka. This interactive map provides real-time flood information to help you make informed decisions during emergencies.</p>
+            </div>
+            
+            <div class="flood-map-container">
+                <iframe class="flood-map-frame" src="https://www.google.com/maps/d/embed?mid=1pvrgWQ0_bMeEGjg3-zQoeuVAvNgTJ6IA&femb=1&ll=7.004886469672412%2C80.21386100000001&z=9&fbclid=IwdGRjcAOYnKxjbGNrA5icp2V4dG4DYWVtAjExAHNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABHli0m57fyX7xvmjs_uYzMqcHQs2SXoPbAHJTDZXtHWowa77Q5BlNEMZkMt-R_aem_N2vDIEY7maqiSGJAaOHUgQ"></iframe>
+                
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #0000ff;"></div>
+                        <div class="legend-text" data-en="Flooded Areas" data-si="ගංවතුරට ගොදුරු ප්‍රදේශ">Flooded Areas</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ff0000;"></div>
+                        <div class="legend-text" data-en="High Risk Zones" data-si="ඉහළ අවදානම් කලාප">High Risk Zones</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ffff00;"></div>
+                        <div class="legend-text" data-en="Moderate Risk" data-si="මධ්‍යස්ථ අවදානම">Moderate Risk</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #00ff00;"></div>
+                        <div class="legend-text" data-en="Low Risk" data-si="අඩු අවදානම">Low Risk</div>
+                    </div>
+                </div>
+                
+            <div class="map-note">
+                <p data-en="Source: Flood data extracted from Sri Lanka Navy Flood Monitoring System (https://floodms.navy.lk/wlrs/index.php)" data-si="මූලාශ්‍රය: ශ්‍රී ලංකා නාවික හමුදා ගංවතුර නිරීක්ෂණ පද්ධතියෙන් ගංවතුර දත්ත ලබාගන්නා ලදී">Source: Flood data extracted from Sri Lanka Navy Flood Monitoring System</p>
+                <p><a href="https://floodms.navy.lk/wlrs/index.php" target="_blank" data-en="View official flood monitoring system" data-si="නිල ගංවතුර නිරීක්ෂණ පද්ධතිය බලන්න">https://floodms.navy.lk/wlrs/index.php</a></p>
+                <p data-en="Note: This map is for informational purposes only. Always follow official guidance from disaster management authorities during emergencies." data-si="සටහන: මෙම සිතියම තොරතුරු සඳහා පමණි. හදිසි අවස්ථාවලදී සැමවිටම විපත් කළමනාකරණ බලධාරීන්ගේ නිල මාර්ගෝපදේශ අනුගමනය කරන්න.">Note: This map is for informational purposes only. Always follow official guidance from disaster management authorities during emergencies.</p>
+            </div>
             </div>
         </div>
     </section>
@@ -1508,7 +1621,7 @@
         changeLanguage(currentLanguage);
 
         // Simple scroll animation (Improved with modern easing)
-        const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshot-item, .download-btn, .roadmap-item-content, .instructions-card, .help-card');
+        const elementsToAnimate = document.querySelectorAll('.feature-card, .screenshot-item, .download-btn, .roadmap-item-content, .instructions-card, .help-card, .flood-map-container');
 
         const animateOnScroll = () => {
             elementsToAnimate.forEach(el => {
